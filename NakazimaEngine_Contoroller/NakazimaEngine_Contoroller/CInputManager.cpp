@@ -104,7 +104,7 @@ bool CInputManager::IsPadTrigger(WORD button) const
 
 bool CInputManager::IsPadRelease(WORD button) const
 {
-    return (m_state.Gamepad.wButtons & button) && (m_oldstate.Gamepad.wButtons & button);
+    return !(m_state.Gamepad.wButtons & button) && (m_oldstate.Gamepad.wButtons & button);
 }
 
 // アナログスティック (-1.0f ~ 1.0f)
