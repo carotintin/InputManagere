@@ -306,6 +306,10 @@ void DirectX11::Render()
     bool padB = input.IsPadPress(XINPUT_GAMEPAD_B);
     bool padX = input.IsPadPress(XINPUT_GAMEPAD_X);
     bool padY = input.IsPadPress(XINPUT_GAMEPAD_Y);
+    bool padL = input.IsPadPress(XINPUT_GAMEPAD_LEFT_SHOULDER);
+    bool padR = input.IsPadPress(XINPUT_GAMEPAD_RIGHT_SHOULDER);
+    BYTE padZR = input.GetRightTrigger();
+    BYTE padZL = input.GetLeftTrigger();
 
     float fThumbLX = input.GetThumbLX();
     float fThumbLY = input.GetThumbLY();
@@ -362,7 +366,7 @@ void DirectX11::Render()
     swprintf(wcText3, 256, L"PAD_LEFT=%d PAD_RIGHT=%d PAD_UP=%d PAD_DOWN=%d", padLeft, padRight, padUp, padDown);
 
     WCHAR wcText4[256] = {};
-    swprintf(wcText4, 256, L"PAD_A=%d PAD_B=%d PAD_X=%d PAD_Y=%d", padA, padB, padX, padY);
+    swprintf(wcText4, 256, L"PAD_A=%d PAD_B=%d PAD_X=%d PAD_Y=%d PAD_L=%d PAD_R=%d\n\n PAD_ZL=%d PAD_ZR=%d", padA, padB, padX, padY, padL, padR, padZL, padZR);
 
     WCHAR wcText5[256] = {};
     swprintf(wcText5, 256, L"sThumbLX=%f sThumbLY=%f", fThumbLX, fThumbLY);

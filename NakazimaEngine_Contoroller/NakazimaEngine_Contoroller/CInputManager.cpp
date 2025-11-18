@@ -21,6 +21,7 @@ CInputManager::CInputManager()
 
     // ゲームパッド入力状態を初期化
     ZeroMemory(&m_state, sizeof(m_state));
+    ZeroMemory(&m_oldstate, sizeof(m_oldstate));
 
     // 振動を初期化（停止状態）
     ZeroMemory(&m_vibration, sizeof(m_vibration));
@@ -43,8 +44,9 @@ void CInputManager::Update()
     }
 
     //--- ゲームパッド更新 ---
+
     ZeroMemory(&m_state, sizeof(XINPUT_STATE));
-    DWORD dwResult = XInputGetState(0, &m_state); // プレイヤー1のみ対応
+    DWORD dwResult = XInputGetState(0, &m_state); // プレイヤー1のみ入力を取る
     if (dwResult != ERROR_SUCCESS)
     {
         // 未接続の場合はすべて0
@@ -64,6 +66,9 @@ void CInputManager::Update()
 
     //--- 振動リセット ---
     ZeroMemory(&m_vibration, sizeof(XINPUT_VIBRATION));
+
+    //このフレームで入力したキーを保存
+    m_oldstate = m_state;
 }
 
 //------------------------------------------------------------------------------
@@ -90,6 +95,16 @@ bool CInputManager::IsKeyRelease(int key) const
 bool CInputManager::IsPadPress(WORD button) const
 {
     return (m_state.Gamepad.wButtons & button) != 0;
+}
+
+bool CInputManager::IsPadTrigger(WORD button) const
+{
+    return (m_state.Gamepad.wButtons & button) && !(m_oldstate.Gamepad.wButtons & button);
+}
+
+bool CInputManager::IsPadRelease(WORD button) const
+{
+    return (m_state.Gamepad.wButtons & button) && (m_oldstate.Gamepad.wButtons & button);
 }
 
 // アナログスティック (-1.0f ~ 1.0f)

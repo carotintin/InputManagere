@@ -27,6 +27,8 @@ public:
     // ゲームパッド入力判定
     //--------------------------------------
     bool IsPadPress(WORD button) const; // ボタンが押されているか
+    bool IsPadTrigger(WORD button) const; // ボタンが押された瞬間か
+    bool IsPadRelease(WORD button) const; // ボタンが離された瞬間か
 
     // アナログスティック（-1.0f ~ 1.0f に正規化済み）
     float GetThumbLX() const;
@@ -57,5 +59,6 @@ private:
     BYTE m_oldKeyTable[256];  // 前フレームのキー状態
 
     XINPUT_STATE m_state;     // 現在のゲームパッド状態
+    XINPUT_STATE m_oldstate;    //前フレームのゲームパッド状態
     XINPUT_VIBRATION m_vibration; // 振動設定
 };
