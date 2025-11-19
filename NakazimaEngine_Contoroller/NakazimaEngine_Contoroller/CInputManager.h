@@ -36,7 +36,12 @@ public:
 
     // トリガー入力（0~255）
     BYTE GetLeftTrigger() const;
+    bool IsLeftTriggerTrigger() const;  //バカみたいな名前だな
+    bool IsLeftTriggerRelease() const;
+
     BYTE GetRightTrigger() const;
+    bool IsRightTriggerTrigger() const;
+    bool IsRightTriggerRelease() const;
 
     // ゲームパッド振動設定
     void SetVibration(WORD leftMotor, WORD rightMotor);

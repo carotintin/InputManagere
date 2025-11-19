@@ -120,15 +120,44 @@ float CInputManager::GetThumbLY() const
     return m_state.Gamepad.sThumbLY / 32767.0f;
 }
 
-// ƒgƒŠƒK[“ü—Í (0~255)
+// ZLƒgƒŠƒK[“ü—Í (0~255)
 BYTE CInputManager::GetLeftTrigger() const
 {
     return m_state.Gamepad.bLeftTrigger;
 }
 
+// ZLƒgƒŠƒK[‚ª‰Ÿ‚³‚ê‚½uŠÔ
+bool CInputManager::IsLeftTriggerTrigger() const
+{
+    return (m_state.Gamepad.bLeftTrigger > 63) &&
+        !(m_oldstate.Gamepad.bLeftTrigger > 63);
+}
+
+// ZLƒgƒŠƒK[‚ª—£‚³‚ê‚½uŠÔ
+bool CInputManager::IsLeftTriggerRelease() const
+{
+    return !(m_state.Gamepad.bLeftTrigger > 63) &&
+        (m_oldstate.Gamepad.bLeftTrigger > 63);
+}
+
+// ZRƒgƒŠƒK[“ü—Í (0~255)
 BYTE CInputManager::GetRightTrigger() const
 {
     return m_state.Gamepad.bRightTrigger;
+}
+
+// ZRƒgƒŠƒK[‚ª‰Ÿ‚³‚ê‚½uŠÔ
+bool CInputManager::IsRightTriggerTrigger() const
+{
+    return (m_state.Gamepad.bRightTrigger > 63) &&
+        !(m_oldstate.Gamepad.bRightTrigger > 63);
+}
+
+// ZRƒgƒŠƒK[‚ª‰Ÿ‚³‚ê‚½uŠÔ
+bool CInputManager::IsRightTriggerRelease() const
+{
+    return !(m_state.Gamepad.bRightTrigger > 63) &&
+        (m_oldstate.Gamepad.bRightTrigger > 63);
 }
 
 //------------------------------------------------------------------------------
