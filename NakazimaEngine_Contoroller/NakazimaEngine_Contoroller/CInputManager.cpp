@@ -43,6 +43,9 @@ void CInputManager::Update()
         m_keyTable[i] = (GetAsyncKeyState(i) & 0x8000) ? 1 : 0;
     }
 
+    //このフレームで入力したキーを保存
+    m_oldstate = m_state;
+
     //--- ゲームパッド更新 ---
 
     ZeroMemory(&m_state, sizeof(XINPUT_STATE));
@@ -67,8 +70,7 @@ void CInputManager::Update()
     //--- 振動リセット ---
     ZeroMemory(&m_vibration, sizeof(XINPUT_VIBRATION));
 
-    //このフレームで入力したキーを保存
-    m_oldstate = m_state;
+
 }
 
 //------------------------------------------------------------------------------
